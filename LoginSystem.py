@@ -1,3 +1,9 @@
+import pickle
+import os
+
+filename: str = 'Users'
+outfile = open(filename, 'wb')
+
 userList = {}
 
 
@@ -8,7 +14,7 @@ def logIn():
         userPassword = input("Please input your password: ")
         if authenticationCheck(userName, userPassword):
             print("Access granted. Welcome.")
-            break
+            return
         else:
             print("Wrong username/password. Please try again.")
             tries += 1
@@ -28,13 +34,22 @@ def authenticationCheck(username, password):
 
 def userCreation(username, password):
     userList[username] = password
+    pickle.dump(userList, outfile)
 
 
 def start():
+    if os.path.getsize(filename) > 0:
+        infile = open(filename, 'rb')
+        global userList
+        userList = pickle.load(infile)
+        print(userList)
+        infile.close()
+
     while True:
         userOption = input("Type 1 to login, 2 to create a new account, or 3 to change your password: ")
         if userOption == "1":
             logIn()
+            outfile.close()
             break
         elif userOption == "2":
             newUsername = input("Type in your new username: ")
