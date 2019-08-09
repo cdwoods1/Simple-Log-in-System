@@ -29,7 +29,6 @@ def userCreation(username, password):
         successLabel = Label(logInRoot, text="This username already exists. Please try again.").place(x=20, y=30)
 
 
-
 def authenticationCheck(username, password):
     if username in userList.keys():
         if password in userList.values():
