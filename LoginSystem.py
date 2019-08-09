@@ -10,8 +10,6 @@ if os.path.getsize(filename) > 0:
     userList = pickle.load(outfile)
     outfile.close()
 
-print(userList)
-
 
 def logIn():
     tries = 0
