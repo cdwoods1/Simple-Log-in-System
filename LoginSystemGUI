@@ -12,8 +12,6 @@ if os.path.getsize(filename) > 0:
     userList = pickle.load(outfile)
     outfile.close()
 
-print(userList)
-
 
 # Creates a new User on the database.
 def userCreation(username, password):
@@ -59,6 +57,7 @@ name = Label(root, text="Log In Screen").place(x=20, y=30)
 userNameTag = Label(root, text="Username").place(x=20, y=60)
 passWordTag = Label(root, text="Password").place(x=20, y=90)
 
+
 userName = StringVar()
 passWord = StringVar()
 
@@ -80,8 +79,3 @@ def windowCreate():
 
 
 windowCreate()
-
-
-
-
-
