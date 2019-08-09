@@ -40,7 +40,7 @@ def logInSuccessWindow():
 def logInFailureWindow():
     logInRoot = Tk()
     logInRoot.geometry("300x100")
-    successLabel = Label(logInRoot, text="Incorrect username/password. Please try again.").place(x=20, y=30)
+    failureLabel = Label(logInRoot, text="Incorrect username/password. Please try again.").place(x=20, y=30)
 
 
 def logIn(username, userpassword):
