@@ -77,6 +77,23 @@ def saveFile():
     root.destroy()
 
 
+def authCheckPasswordUpdate(username, password):
+    oldName = username.get()
+    oldPass = password.get()
+
+    if authenticationCheck(oldName, oldPass):
+        rootThree = Tk()
+        rootThree.geometry("300x300")
+        Reset = Label(rootThree, text="Please type in your new password.").place(x=20, y=30)
+        passWordTwo = StringVar()
+        userNameEntryTwo = Entry(rootThree, textvariable=passWordTwo).place(x=80, y=60)
+        confirmationButton = Button(rootThree, text="confirm", command=newPassword).place(x=20, y=120)
+    else:
+        rootThree = Tk()
+        rootThree.geometry("300x300")
+        Reset = Label(rootThree, text="We could not find this account. Please try again.").place(x=20, y=30)
+
+
 def updatePassword():
     newRoot = Tk()
     newRoot.geometry("300x300")
@@ -87,13 +104,13 @@ def updatePassword():
     userNameTwo = StringVar()
     passWordTwo = StringVar()
 
-    global authenticationCheck
-    authenticationCheck = partial(authenticationCheck, userNameTwo.get(), passWordTwo.get())
+    global authCheckPasswordUpdate
+    authCheckPasswordUpdate = partial(authCheckPasswordUpdate, userNameTwo, passWordTwo)
 
     # The two entries are created.
     userNameEntryTwo = Entry(newRoot, textvariable=userNameTwo).place(x=80, y=60)
     passwordEntryTwo = Entry(newRoot, textvariable=passWordTwo).place(x=80, y=90)
-    confirmationButton = Button(newRoot, text="confirm", command=authenticationCheck).place(x=20, y=120)
+    confirmationButton = Button(newRoot, text="confirm", command=authCheckPasswordUpdate).place(x=20, y=120)
 
 
 # The window is created.
