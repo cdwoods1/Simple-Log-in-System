@@ -2,7 +2,8 @@ userList = {}
 
 
 def logIn():
-    while True:
+    tries = 0
+    while tries < 4:
         userName = input("Please input your username: ")
         userPassword = input("Please input your password: ")
         if authenticationCheck(userName, userPassword):
@@ -10,7 +11,9 @@ def logIn():
             break
         else:
             print("Wrong username/password. Please try again.")
+            tries += 1
             continue
+    print("You have attempted to login too many times. Please try again later.")
 
 
 def authenticationCheck(username, password):
