@@ -20,6 +20,14 @@ def userCreation(username, password):
     UserPassword = password.get()
     if UserName not in userList.keys():
         userList[UserName] = UserPassword
+        logInRoot = Tk()
+        logInRoot.geometry("300x100")
+        successLabel = Label(logInRoot, text="You have successfully created a new account.").place(x=20, y=30)
+    else:
+        logInRoot = Tk()
+        logInRoot.geometry("300x100")
+        successLabel = Label(logInRoot, text="This username already exists. Please try again.").place(x=20, y=30)
+
 
 
 def authenticationCheck(username, password):
