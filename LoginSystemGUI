@@ -14,13 +14,13 @@ if os.path.getsize(filename) > 0:
 
 print(userList)
 
+
 # Creates a new User on the database.
 def userCreation(username, password):
-    UserName = userName.get()
+    UserName = username.get()
     UserPassword = password.get()
-    if UserName not in UserPassword:
+    if UserName not in userList.keys():
         userList[UserName] = UserPassword
-
 
 
 def authenticationCheck(username, password):
@@ -41,6 +41,13 @@ def logIn(username, userpassword):
         return
     else:
         print("Wrong username/password. Please try again.")
+
+
+def saveFile():
+    infile = open(filename, 'wb')
+    pickle.dump(userList, infile)
+    infile.close()
+    root.destroy()
 
 
 # The window is created.
@@ -68,8 +75,13 @@ resetPasswordButton = Button(root, text="Reset Password").place(x=170, y=120)
 
 
 def windowCreate():
+    root.protocol("WM_DELETE_WINDOW", saveFile)
     root.mainloop()
 
 
 windowCreate()
+
+
+
+
 
