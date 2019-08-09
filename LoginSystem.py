@@ -5,6 +5,7 @@ from functools import partial
 
 filename: str = 'Users'
 userList = {}
+logInAttempts = 0
 
 # Tests to ensure that there is already saved accounts.
 if os.path.getsize(filename) > 0:
@@ -32,15 +33,23 @@ def authenticationCheck(username, password):
 
 
 def logInSuccessWindow():
+    global logInAttempts
+    logInAttempts = 0
     logInRoot = Tk()
     logInRoot.geometry("300x100")
     successLabel = Label(logInRoot, text="Access granted. Welcome.").place(x=20,y=30)
 
 
 def logInFailureWindow():
+    global logInAttempts
+    logInAttempts += 1
     logInRoot = Tk()
     logInRoot.geometry("300x100")
-    failureLabel = Label(logInRoot, text="Incorrect username/password. Please try again.").place(x=20, y=30)
+    failureLabel = None
+    if logInAttempts < 5:
+        failureLabel = Label(logInRoot, text="Incorrect username/password. Please try again.").place(x=20, y=30)
+    else:
+        failureLabel = Label(logInRoot, text="You have attempted to log in too many times.").place(x=20, y=30)
 
 
 def logIn(username, userpassword):
@@ -78,7 +87,6 @@ def updatePassword():
     userNameEntryTwo = Entry(newRoot, textvariable=userNameTwo).place(x=80, y=60)
     passwordEntryTwo = Entry(newRoot, textvariable=passWordTwo).place(x=80, y=90)
     confirmationButton = Button(newRoot, text="confirm", command=authenticationCheck).place(x=20, y=120)
-
 
 
 # The window is created.
