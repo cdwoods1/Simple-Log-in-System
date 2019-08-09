@@ -21,7 +21,7 @@ def logIn():
 
 def userCreation(username, password):
     userNameList.append(username)
-    userNameList.append(password)
+    passWordList.append(password)
 
 def start():
     while True:
@@ -33,8 +33,10 @@ def start():
             newUsername = input("Type in your new username: ")
             newPassword = input("Type in your new password: ")
             userCreation(newUsername, newPassword)
-            break
+            input("Thank you very much.")
+            continue
         else:
             print("You did not select either option. Please try again.")
 
 
+start()
