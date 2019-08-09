@@ -1,0 +1,75 @@
+import pickle
+import os
+from tkinter import *
+from functools import partial
+
+filename: str = 'Users'
+userList = {}
+
+# Tests to ensure that there is already saved accounts.
+if os.path.getsize(filename) > 0:
+    outfile = open(filename, 'rb')
+    userList = pickle.load(outfile)
+    outfile.close()
+
+print(userList)
+
+# Creates a new User on the database.
+def userCreation(username, password):
+    UserName = userName.get()
+    UserPassword = password.get()
+    if UserName not in UserPassword:
+        userList[UserName] = UserPassword
+
+
+
+def authenticationCheck(username, password):
+    if username in userList.keys():
+        if password in userList.values():
+            return True
+        else:
+            return False
+    else:
+        return False
+
+
+def logIn(username, userpassword):
+    UserName = username.get()
+    UserPassword = userpassword.get()
+    if authenticationCheck(UserName, UserPassword):
+        print("Access granted. Welcome.")
+        return
+    else:
+        print("Wrong username/password. Please try again.")
+
+
+# The window is created.
+root = Tk()
+root.geometry("400x400")
+
+# The tags are created next.
+name = Label(root, text="Log In Screen").place(x=20, y=30)
+userNameTag = Label(root, text="Username").place(x=20, y=60)
+passWordTag = Label(root, text="Password").place(x=20, y=90)
+
+userName = StringVar()
+passWord = StringVar()
+
+# The two entries are created.
+userNameEntry = Entry(root, textvariable=userName).place(x=80, y=60)
+passwordEntry = Entry(root, textvariable=passWord).place(x=80, y=90)
+
+userCreation = partial(userCreation, userName, passWord)
+logIn = partial(logIn, userName, passWord)
+
+logInButton = Button(root, text="Log in", command=logIn).place(x=20, y=120)
+createAccountButton = Button(root, text="Create Account", command=userCreation).place(x=70, y=120)
+resetPasswordButton = Button(root, text="Reset Password").place(x=170, y=120)
+
+
+def windowCreate():
+    root.mainloop()
+
+
+windowCreate()
+
